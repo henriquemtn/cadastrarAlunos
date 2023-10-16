@@ -9,22 +9,15 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final boolean False = false;
-       
-    public LogoutServlet() {
-        super();
-        
-    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(False);
+		HttpSession session = request.getSession();
 		session.invalidate();
 		response.sendRedirect("index.jsp");
 	}
-	
+
 
 
 }

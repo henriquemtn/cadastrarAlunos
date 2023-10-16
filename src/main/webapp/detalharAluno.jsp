@@ -8,12 +8,24 @@
 <title>Informações do Aluno</title>
 </head>
 <body>
+<%
+	String usuario = (String) session.getAttribute("usuario");
 
+	if (usuario == null ) {
+		response.sendRedirect("index.jsp");
+	}	
+%>	
 <% Aluno aluno = (Aluno) request.getAttribute("aluno");%>
 
 <h2> Aluno Cadastrado</h2>
 
 Nome: <%=aluno.getNome()%>
+<br><br>
+
+Id: <%=aluno.getId()%>
+<br><br>
+
+Matrícula: <%=aluno.getMatricula()%>
 <br><br>
 
 Idade: <%=aluno.getIdade()%>
@@ -25,12 +37,8 @@ Genero: <%=aluno.getGenero()%>
 Semestre: <%=aluno.getSemestre()%>
 <br><br>
 
-<input type="button" onclick="javascript:location.href='listarAlunos.jsp'"  value="Confirmar"> 
-<a href="AlterarServlet?nome=<%=aluno.getNome()%>">Alterar</a>
-
-
-
-
+<input type="button" onclick="javascript:location.href='ListaServlet'"  value="Confirmar"> 
+<a href="AlterarServlet?id=<%=aluno.getId()%>">Alterar</a>
 
 
 </body>

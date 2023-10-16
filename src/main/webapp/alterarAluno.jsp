@@ -9,6 +9,13 @@
 </head>
 <body>
 
+<%
+	String usuario = (String) session.getAttribute("usuario");
+
+	if (usuario == null ) {
+		response.sendRedirect("index.jsp");
+	}	
+%>	
 <% Aluno aluno = (Aluno) request.getAttribute("aluno"); %>
 
 
@@ -16,7 +23,8 @@
 
 <form action="ConfirmarAlteracaoServlet" method="post">
 
-<input type="hidden" name="nomeAntigo" value="<%=aluno.getNome() %>">
+<input type="hidden" name="id" value="<%=aluno.getId() %>">
+<input type="hidden" name="matricula" value="<%=aluno.getMatricula() %>">
 
 Nome:
 <input type="text" name="nome" value="<%=aluno.getNome() %>">
@@ -33,13 +41,11 @@ Semestre:
 </select>
 <br><br>
 
-
 Genero:
-<input type='radio' name='genero' value='masculino'
- <%=aluno.getGenero().equals("Masculino") ? "checked" : "" %>>Masculino
- <input type='radio' name='genero' value='feminino'
- <%=aluno.getGenero().equals("Feminino") ? "checked" : "" %>>Feminino
- 
+
+<input type = "radio" name="genero" value="Masculino" <%=aluno.getGenero().equals("Masculino")  ? "checked"  :  ""%>>Masculino
+<input type = "radio" name="genero" value="Feminino" <%=aluno.getGenero().equals("Feminino")  ? "checked"  :  ""%>>Feminino   
+<br><br>
 
 
 <input type="submit" value="Confirmar Alteração">

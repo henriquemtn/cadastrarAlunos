@@ -1,8 +1,10 @@
 package com.jp.senac.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
+import com.jp.senac.dao.AlunoJDBCdao;
 import com.jp.senac.model.Aluno;
 
 import jakarta.servlet.ServletException;
@@ -13,30 +15,16 @@ import jakarta.servlet.http.HttpSession;
 
 public class ExcluirServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
-    public ExcluirServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String nome = request.getParameter("nome");
-		HttpSession session = request.getSession();
-		List<Aluno> listaAlunos = (List<Aluno>) session.getAttribute("listaAlunos"); 
-		
-		Aluno aluno = null;
-		for (Aluno a : listaAlunos) {
-			if (a.getNome().toString().equals(nome)) {
-				aluno = a;
-			}
-		}
-		
-		listaAlunos.remove(aluno);
-		session.setAttribute("listaAlunos", aluno);
-		request.getRequestDispatcher("listarAlunos.jsp").forward(request, response);
-		
+
+		Integer id = Integer.parseInt(request.getParameter("id"));	
+
+		AlunoJDBCdao dao = new AlunoJDBCdao();
+		dao.excluirAluno(id);
+
+		request.getRequestDispatcher("ListaServlet").forward(request, response);
 	}
 
 }
